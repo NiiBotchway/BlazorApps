@@ -1,0 +1,45 @@
+﻿<div class="ml-3">
+    <h2>First Cascading Component</h2>
+
+    @if (display)
+    {
+        <p>
+            <button class="btn btn-primary" @onclick="@(() => SetCurrentCount.InvokeAsync(0))">+</button>
+            <span>@Number</span>
+        </p>
+    }
+
+
+    @*<SecondCascadingComponent SetCurrentCount="@SetCurrentCount" />*@
+</div>
+
+@code{
+    #region Parameters
+
+    [CascadingParameter(Name = "Number")]
+    public int Number { get; set; }
+
+    [Parameter]
+    public EventCallback<int> SetCurrentCount { get; set; }
+
+    bool display = false;
+
+    #endregion
+
+
+    #region Methods
+
+    async Task CountIncrement()
+    {
+        await SetCurrentCount.InvokeAsync(0);
+    }
+
+    public void Show()
+    {
+        display = !display;
+        StateHasChanged();
+    }
+
+    #endregion
+
+}

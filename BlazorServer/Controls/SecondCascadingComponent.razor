@@ -1,0 +1,19 @@
+﻿<div class="ml-3">
+    <h2>Second Cascading Component</h2>
+    @*@Number*@
+
+    <p>
+        <button class="btn btn-primary" @onclick="@(() => SetCurrentCount.InvokeAsync(0))">+</button>
+        <span>@Number</span>
+    </p>
+</div>
+
+
+@code{
+    [CascadingParameter(Name = "Number")]
+    public int Number { get; set; }
+
+    [Parameter]
+    public EventCallback<int> SetCurrentCount { get; set; }
+
+}

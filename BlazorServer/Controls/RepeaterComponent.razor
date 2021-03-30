@@ -1,0 +1,13 @@
+﻿@typeparam TItem
+
+@foreach (var team in Teams)
+{
+    @Row(team)
+}
+
+@code{
+
+    [Parameter] public List<TItem> Teams { get; set; }
+    [Parameter] public RenderFragment<TItem> Row { get; set; }
+
+}

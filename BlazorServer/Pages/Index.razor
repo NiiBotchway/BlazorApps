@@ -1,0 +1,83 @@
+﻿@page "/"
+
+<h1>Index Page</h1>
+
+Welcome to your new app.
+
+@*<SurveyPrompt />*@
+
+<p>Name: @person.SalesPerson</p>
+<p>Amount: @person.AmountFormatted</p>
+<p>
+    <label>Amount: </label>
+    <input type="number" name="Amount" @bind="person.Amount" @bind:event="oninput">
+</p>
+<p>
+    <select @bind="selectedOptionId">
+        @foreach (var Loc in person.Locations)
+        {
+            <option value="@Loc.Id">@Loc.City</option>
+        }
+    </select>
+    @selectedOptionId
+</p>
+<p>
+    <input type="number" name="selectChange" @bind="selectedOptionId" @bind:event="oninput" />
+</p>
+
+@code{
+    IndexViewModel person = null;
+    int selectedOptionId = 2;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+
+        person = new IndexViewModel
+        {
+            SalesPerson = "Nii",
+            Amount = 2000,
+            Locations = new List<Location>
+    {
+                new Location{Id = 1, City = "Accra", ProvState = "Kasoa", Country = "Ghana"},
+                new Location{Id = 2, City = "Kumase", ProvState = "Ejisu", Country = "Ghana"}
+            }
+        };
+
+    }
+
+    #region "View Model"
+
+    class IndexViewModel
+    {
+        public string SalesPerson { get; set; }
+        public double Amount { get; set; }
+        public bool isActive { get; set; }
+        public List<Location> Locations;
+        public string AmountFormatted
+        {
+            get => Amount.ToString("C");
+            //set
+            //{
+            //    if (Double.TryParse(value, out var number))
+            //    {
+            //        Amount = Math.Round(number, 4);
+            //    }
+            //}
+            set => Amount = Convert.ToDouble(value);
+        }
+    }
+
+    class Location
+    {
+
+        public int Id { get; set; }
+        public string City { get; set; }
+        public string ProvState { get; set; }
+        public string Country { get; set; }
+    }
+
+    #endregion
+
+}

@@ -1,0 +1,87 @@
+﻿@page "/team/{id}"
+
+<h3>Welcome to @team.Name Fan Page</h3>
+<br />
+<br />
+<p>
+    <h4>Team Details</h4>
+    Name: @team.Name <br />
+    Region: @team.Region <br />
+</p>
+<br />
+<hr />
+<p>
+    <h4>Team Members</h4>
+    <table class="table table-responsive-md table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in members)
+            {
+
+                <tr>
+                    <td>@member.Name</td>
+                    <td>@member.Age</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</p>
+
+@code{
+    [Parameter]
+    public string Id { get; set; }
+    private Team team;
+    private List<Member> members;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        var Teams = new List<Team>()
+{
+            new Team {Id = 1, Name = "Hearts Of Oak", Region = "Accra", },
+            new Team {Id = 2, Name = "Asante Kotoko", Region = "Kumasi"},
+            new Team {Id = 3, Name = "Berekum Chelsea", Region = "Western"},
+            new Team {Id = 4, Name = "Liberty Professionals", Region = "Accra"}
+        };
+
+        var TeamMembers = new List<Member>()
+{
+            new Member{Id = 1, Name = "Ish", Age = 25, TeamId = 1},
+            new Member{Id = 2, Name = "Nii", Age = 26, TeamId = 1},
+            new Member{Id = 3, Name = "Isaac", Age = 43, TeamId = 3},
+            new Member{Id = 4, Name = "Tay", Age = 41, TeamId = 4},
+            new Member{Id = 5, Name = "Akas", Age = 22, TeamId = 2},
+            new Member{Id = 6, Name = "Mike", Age = 23, TeamId = 3}
+        };
+
+        team = Teams.FirstOrDefault(x => x.Id == Convert.ToInt32(this.Id));
+        members = TeamMembers.Where(x => x.TeamId == Convert.ToInt32(Id)).ToList();
+    }
+
+    #region Models
+
+    class Team
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Region { get; set; }
+    }
+
+    class Member
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int TeamId { get; set; }
+    }
+
+    #endregion
+
+} 

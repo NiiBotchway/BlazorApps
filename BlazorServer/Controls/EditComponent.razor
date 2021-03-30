@@ -1,0 +1,49 @@
+﻿@typeparam TItem
+
+@if (Teams != null)
+{@foreach (var team in Teams)
+    {
+        @TeamsTemplate(team)
+    }
+}
+<br />
+@ExtraTemplate
+<br />
+
+@if (TeamToEdit != null)
+{
+    @EditTemplate(TeamToEdit)
+}
+
+@code{
+
+    [Parameter] public List<TItem> Teams { get; set; }
+    public TItem TeamToEdit { get; set; }
+    [Parameter] public RenderFragment<TItem> TeamsTemplate { get; set; }
+    [Parameter] public RenderFragment ExtraTemplate { get; set; }
+    [Parameter] public RenderFragment<TItem> EditTemplate { get; set; }
+
+    //private List<Team> Teams;
+
+    //protected override void OnInitialized()
+    //{
+    //    base.OnInitialized();
+
+    //    Teams = new List<Team>()
+    //    {
+    //        new Team {Id = 1, Name = "Hearts Of Oak", Region = "Accra", },
+    //        new Team {Id = 2, Name = "Asante Kotoko", Region = "Kumasi"},
+    //        new Team {Id = 3, Name = "Berekum Chelsea", Region = "Western"},
+    //        new Team {Id = 4, Name = "Liberty Professionals", Region = "Accra"}
+    //    };
+
+    //}
+
+    class Team
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Region { get; set; }
+    }
+
+}

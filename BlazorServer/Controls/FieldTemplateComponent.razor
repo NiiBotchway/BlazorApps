@@ -1,0 +1,18 @@
+﻿<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">@Label</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control">
+                @*<input class="input" type="email" placeholder="Recipient email">*@
+                @Fragment
+            </p>
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter] public string Label { get; set; }
+    [Parameter] public RenderFragment Fragment { get; set; }
+}
