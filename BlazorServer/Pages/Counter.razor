@@ -6,8 +6,31 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<button @onclick="() => modal.Open()">Modal</button>
+
+<Modal @ref="modal">
+    <Title>
+        Edit
+    </Title>
+    <Body>
+        <div>
+            <label>Name:</label>
+            <input class="form-control" type="text" />
+        </div>
+        <div>
+            <label>Region:</label>
+            <input class="form-control" type="text" />
+        </div>
+    </Body>
+    <Footer>
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => modal.Close()">Close</button>
+    </Footer>
+</Modal>
+
 @code {
     private int currentCount = 0;
+    private Modal modal;
 
     private void IncrementCount()
     {
