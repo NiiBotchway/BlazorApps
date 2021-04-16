@@ -15,25 +15,40 @@
     <Body>
         <div>
             <label>Name:</label>
-            <input class="form-control" type="text" />
+            <input class="form-control" type="text" @bind="nameInput" @bind:event="oninput" />
         </div>
         <div>
             <label>Region:</label>
-            <input class="form-control" type="text" />
+            <input class="form-control" type="text" @bind="regionInput" @bind:event="oninput"/>
         </div>
     </Body>
     <Footer>
         <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => modal.Close()">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => CloseModal()">Close</button>
     </Footer>
 </Modal>
 
 @code {
     private int currentCount = 0;
     private Modal modal;
+    private string nameInput = "";
+    private string regionInput = "";
+
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    private void ResetInputControls()
+    {
+        nameInput = "";
+        regionInput = "";
+    }
+
+    private void CloseModal()
+    {
+        ResetInputControls();
+        modal.Close();
     }
 }

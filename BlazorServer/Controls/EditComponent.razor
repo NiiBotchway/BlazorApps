@@ -13,6 +13,25 @@
 @if (TeamToEdit != null)
 {
     @EditTemplate(TeamToEdit)
+    @*<Modal @ref="modal">
+        <Title>
+            Edit
+        </Title>
+        <Body>
+            <div>
+                <label>Name:</label>
+                <input class="form-control" type="text"  @bind="TeamToEdit.Name"/>
+            </div>
+            <div>
+                <label>Region:</label>
+                <input class="form-control" type="text" />
+            </div>
+        </Body>
+        <Footer>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => OpenModal()">Close</button>
+        </Footer>
+    </Modal>*@
 }
 
 @code{
@@ -22,12 +41,13 @@
     [Parameter] public RenderFragment<TItem> TeamsTemplate { get; set; }
     [Parameter] public RenderFragment ExtraTemplate { get; set; }
     [Parameter] public RenderFragment<TItem> EditTemplate { get; set; }
+    Modal modal;
 
     //private List<Team> Teams;
 
     //protected override void OnInitialized()
     //{
-    //    base.OnInitialized();
+    //    base.OnInitialized(); 
 
     //    Teams = new List<Team>()
     //    {
@@ -44,6 +64,24 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public string Region { get; set; }
+    }
+
+
+    void ResetInputControls()
+    {
+        //nameInput = "";
+        //regionInput = "";
+    }
+
+    void CloseModal()
+    {
+        ResetInputControls();
+        modal.Close();
+    }
+
+    void OpenModal()
+    {
+        modal.Open();
     }
 
 }
